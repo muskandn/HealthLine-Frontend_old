@@ -7,7 +7,7 @@ import ReviewCard from './ReviewCard';
 import { Rating } from "@material-ui/lab"; 
 import Loader from "../layout/Loader/Loader";
 import { useAlert } from 'react-alert';
-
+import MetaData from '../layout/MetaData';
 
 
 
@@ -77,7 +77,7 @@ const [quantity, setQuantity] = useState(1);
         <Loader />
       ) : (
     <Fragment>
-        
+        <MetaData title={`${product.name} -- ECOMMERCE`} />
         <div className="ProductDetails">
             <div>
                 <Carousel>

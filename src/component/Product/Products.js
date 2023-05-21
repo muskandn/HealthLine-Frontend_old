@@ -10,14 +10,40 @@ import { useParams } from 'react-router-dom';
 import Pagination from "react-js-pagination";
 import Typography from "@material-ui/core/Typography"
 import "./Products.css";
+import MetaData from "../layout/MetaData";
+
+const categories = [
+  "laptop",
+  "footwear",
+  "bottom",
+  "tops",
+  "attire",
+  "camera",
+  "smartPhones",
+  "ipad",
+  "iphone"
+];
+
+
+
+
+
+
+
+
+
+
 const Products = () => {
 
     const dispatch=useDispatch();
     const alert = useAlert();
     const [currentPage, setCurrentPage] = useState(1);
-    const [price, setPrice] = useState([0, 125000]);
+    const [price, setPrice] = useState([0, 195000]);
     const [category, setCategory] = useState("");
     const {products, loading, error, productsCount,resultPerPage,filteredProductCount} =useSelector(state=>state.products);
+
+    
+      const [ratings, setRatings] = useState(0);
 
     const {keyword}=useParams();
     
@@ -36,8 +62,8 @@ const Products = () => {
         alert.error(error);
         dispatch(clearErrors())
     }
-    dispatch(getProduct(keyword,currentPage,price))
-    },[dispatch,keyword,currentPage,price,error,alert])
+    dispatch(getProduct(keyword,currentPage,price,category,ratings))
+    },[dispatch,keyword,currentPage,price,category,ratings,error,alert])
 
   return (
     <Fragment>
@@ -45,6 +71,8 @@ const Products = () => {
         <Loader/> 
         :
         <Fragment>
+
+          <MetaData title="PRODUCTS -- ECOMMERCE" />
             <h2 className="productsHeading">Products</h2>
 
           <div className="products">
@@ -66,10 +94,10 @@ const Products = () => {
               valueLabelDisplay="auto"
               aria-labelledby="range-slider"
               min={0}
-              max={25000}
+              max={125000}
             />
 
-            {/* <Typography>Categories</Typography>
+             <Typography>Categories</Typography>
             <ul className="categoryBox">
               {categories.map((category) => (
                 <li
@@ -94,7 +122,7 @@ const Products = () => {
                 min={0}
                 max={5}
               />
-            </fieldset> */}
+            </fieldset>
           </div>
 
 
