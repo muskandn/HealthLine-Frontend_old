@@ -3,16 +3,23 @@ import "./LoginSignUp.css";
 import Loader from "../layout/Loader/Loader";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-//import { clearErrors, login, register } from "../../actions/userAction";
+import { clearErrors, login ,register} from "../../actions/userAction";
 import { useAlert } from "react-alert";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
 import FaceIcon from "@material-ui/icons/Face";
+import {useNavigate} from "react-router-dom";
 
 const LoginSignUp = () => {
-  //     const { error, loading, isAuthenticated } = useSelector(
-  //     (state) => state.user
-  //   );
+
+  const dispatch=useDispatch();
+  const alert=useAlert();
+  const navigate=useNavigate();
+
+
+    const { error, loading, isAuthenticated } = useSelector(
+    (state) => state.user
+  )
 
   const loginTab = useRef(null);
   const switcherTab = useRef(null);
@@ -31,8 +38,9 @@ const LoginSignUp = () => {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
 
-  const loginSubmit = () => {
-    console.log("form submitted");
+   const loginSubmit = (e) => {
+    e.preventDefault();
+    dispatch(login(loginEmail, loginPassword));
   };
 
   const registerSubmit = (e) => {
@@ -45,8 +53,8 @@ const LoginSignUp = () => {
     myForm.set("password", password);
     myForm.set("avatar", avatar);
 
-    console.log("sign up form submitted");
-    //dispatch(register(myForm));
+    // console.log("sign up form submitted");
+    dispatch(register(myForm));
   };
 
 
@@ -77,6 +85,22 @@ const LoginSignUp = () => {
 
 
 
+useEffect(() => {
+    if (error) {
+      alert.error(error);
+      dispatch(clearErrors());
+    }
+
+    if (isAuthenticated) {
+      navigate("/accounts");
+    }
+  }, [dispatch, error, alert
+    , isAuthenticated
+    // , redirect
+  ]);
+
+
+
 
   const switchTabs = (e, tab) => {
     if (tab === "login") {
@@ -96,10 +120,10 @@ const LoginSignUp = () => {
   };
 
   return (
-    // <Fragment>
-    //   {loading ? (
-    //     <Loader />
-    //   ) : (
+    <Fragment>
+      {loading ? (
+        <Loader />
+      ) : (
     <Fragment>
       <div className="LoginSignUpContainer">
         <div className="LoginSignUpBox">
@@ -196,8 +220,8 @@ const LoginSignUp = () => {
         </div>
       </div>
     </Fragment>
-    //       )}
-    //     </Fragment>
+          )}
+        </Fragment>
   );
 };
 
