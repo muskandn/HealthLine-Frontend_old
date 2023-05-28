@@ -92,7 +92,7 @@ useEffect(() => {
     }
 
     if (isAuthenticated) {
-      navigate("/accounts");
+      navigate("/account");
     }
   }, [dispatch, error, alert
     , isAuthenticated

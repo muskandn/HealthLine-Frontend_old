@@ -5,7 +5,10 @@ import thunk from "redux-thunk"
 import {composeWithDevTools} from "redux-devtools-extension";
 import { productsReducer } from "./reducers/productsReducer";
 import { productDetailsReducer } from "./reducers/productsReducer"; 
-import { userReducer } from "./reducers/userReducer";
+import { userReducer,
+        profileReducer,
+        forgotPasswordReducer,
+    } from "./reducers/userReducer";
 
 
 const reducer=combineReducers({
@@ -13,6 +16,8 @@ const reducer=combineReducers({
     products: productsReducer,
     productDetails:productDetailsReducer ,
     user: userReducer,
+    profile: profileReducer,
+    forgotPassword: forgotPasswordReducer,
 
 })
 
