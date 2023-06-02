@@ -8,14 +8,14 @@ import { useAlert } from "react-alert";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
 import FaceIcon from "@material-ui/icons/Face";
-import {useNavigate} from "react-router-dom";
+import {useNavigate,useLocation} from "react-router-dom";
 
 const LoginSignUp = () => {
 
   const dispatch=useDispatch();
   const alert=useAlert();
   const navigate=useNavigate();
-
+  const location=useLocation()
 
     const { error, loading, isAuthenticated } = useSelector(
     (state) => state.user
@@ -83,7 +83,7 @@ const LoginSignUp = () => {
     }
   };
 
-
+const redirect = location.search ? location.search.split("=")[1] : "/account";
 
 useEffect(() => {
     if (error) {
@@ -92,7 +92,7 @@ useEffect(() => {
     }
 
     if (isAuthenticated) {
-      navigate("/account");
+      navigate(redirect);
     }
   }, [dispatch, error, alert
     , isAuthenticated

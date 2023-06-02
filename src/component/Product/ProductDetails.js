@@ -8,8 +8,8 @@ import { Rating } from "@material-ui/lab";
 import Loader from "../layout/Loader/Loader";
 import { useAlert } from 'react-alert';
 import MetaData from '../layout/MetaData';
-
-
+import "./ProductDetails.css";
+import { addItemsToCart } from '../../actions/cartAction';
 
 
 
@@ -23,14 +23,12 @@ const ProductDetails = () => {
  const {product, loading, error}=useSelector(state=>state.productDetails)
 
 
-const options={
-    edit: false,
-    color: "rgba(20,20,20,0.1)",
-    activeColor:"tomato",
-    size: window.innerWidth<600?20 : 25,
+  const options = {
+    size: "large",
     value: product.ratings,
-    ishalf: true
-}
+    readOnly: true,
+    precision: 0.5,
+  };
 
 const [quantity, setQuantity] = useState(1);
   const [open, setOpen] = useState(false);
@@ -52,7 +50,7 @@ const [quantity, setQuantity] = useState(1);
   };
 
     const addToCartHandler = () => {
-    // dispatch(addItemsToCart(id, quantity));
+    dispatch(addItemsToCart(id, quantity));
     alert.success("Item Added To Cart");
   };
 
@@ -81,12 +79,12 @@ const [quantity, setQuantity] = useState(1);
         <div className="ProductDetails">
             <div>
                 <Carousel>
-                    {product.images && product.images.map((item,i)=>{
+                    {product.images && product.images.map((item)=>{
                         <img 
                         className='CarouselImage'
                         key={item.url}
                         src={item.url}
-                        alt={`${i} Slide`}/>
+                        />
                     })}
                 </Carousel>
             </div>

@@ -1,21 +1,13 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from "react";
+import { Link } from "react-router-dom";
 import { Rating } from "@material-ui/lab";
 
-// const options={
-//     edit:false,
-//     color:"rgba(20,20,20,20,0.1)",
-//     activeColor:"tomato",
-//     value:2.5,
-//     isHalf: true  }
-
-const ProductCard = ({product}) => {
+const ProductCard = ({ product }) => {
   const options = {
     value: product.ratings,
     readOnly: true,
     precision: 0.5,
   };
-  
   return (
     <Link className="productCard" to={`/product/${product._id}`}>
       <img src={product.images[0].url} alt={product.name} />
@@ -29,8 +21,7 @@ const ProductCard = ({product}) => {
       </div>
       <span>{`₹${product.price}`}</span>
     </Link>
-    
   );
-}
+};
 
-export default ProductCard
+export default ProductCard;

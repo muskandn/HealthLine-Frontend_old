@@ -9,7 +9,7 @@ import { userReducer,
         profileReducer,
         forgotPasswordReducer,
     } from "./reducers/userReducer";
-
+import { cartReducer } from "./reducers/cartReducer";
 
 const reducer=combineReducers({
     
@@ -18,10 +18,21 @@ const reducer=combineReducers({
     user: userReducer,
     profile: profileReducer,
     forgotPassword: forgotPasswordReducer,
+    cart:cartReducer
 
 })
 
-let inititalState={};
+let inititalState={
+    //means there exits any data in local storage then load it in initial state else empty array
+    //cart:{
+        cartitems: localStorage.getItem("cartitems")
+        ? JSON.parse(localStorage.getItem("cartItems"))
+        :[],
+        shippingInfo: localStorage.getItem("shippingInfo")
+      ? JSON.parse(localStorage.getItem("shippingInfo"))
+      : {},
+    //}
+};
 
 const middleware=[thunk];
 //const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

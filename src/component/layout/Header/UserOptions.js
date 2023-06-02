@@ -16,23 +16,25 @@ import {useNavigate} from "react-router-dom";
 
 const UserOptions = ({user}) => {
 
+  const {cartItems}=useSelector((state)=>state.cart)
     const [open,setOpen]=useState(false)
     const alert = useAlert();
     const dispatch = useDispatch();
     const navigate=useNavigate();
 
     const options=[
-        { icon: <ListAltIcon />, name: "Orders", func: orders },
+      
+    { icon: <ListAltIcon />, name: "Orders", func: orders },
     { icon: <PersonIcon />, name: "Profile", func: account },
-    // {
-    //   icon: (
-    //     <ShoppingCartIcon
-    //       style={{ color: cartItems.length > 0 ? "tomato" : "unset" }}
-    //     />
-    //   ),
-    //   name: `Cart(${cartItems.length})`,
-    //   func: cart,
-    // },
+    {
+      icon: (
+        <ShoppingCartIcon
+          style={{ color: cartItems.length > 0 ? "tomato" : "unset" }}
+        />
+      ),
+      name: `Cart(${cartItems.length})`,
+      func: cart,
+    },
     { icon: <ExitToAppIcon />, name: "Logout", func: logoutUser },
     ]
 
@@ -59,9 +61,9 @@ const UserOptions = ({user}) => {
     function account() {
       navigate("/account");
     }
-//   function cart() {
-//     history.push("/cart");
-//   }
+  function cart() {
+    navigate("/cart");
+  }
 
 
     function logoutUser() {
